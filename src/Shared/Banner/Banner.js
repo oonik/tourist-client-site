@@ -6,7 +6,7 @@ import 'aos/dist/aos.css';
 const Banner = () => {
     AOS.init()
     return (
-        <div  className="hero min-h-screen mt-5" style={{ backgroundImage: `url(${banner})` }}>
+        <div className="hero min-h-screen mt-5" style={{ backgroundImage: `url(${banner})` }}>
             <div className="hero-overlay bg-opacity-70"></div>
             <div className="hero-content text-center text-neutral-content">
                 <div className="max-w-md">

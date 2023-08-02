@@ -1,0 +1,7 @@
+
+.bg-image {
+    background:rgba(0, 0, 0, 0.7)url('https://i.postimg.cc/x1z6qhfm/booking.jpg');
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: darken;
+}
