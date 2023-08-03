@@ -4,27 +4,24 @@ import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import './BooktTour.css'
 import 'react-day-picker/dist/style.css';
-import { da } from 'date-fns/locale';
+
 
 
 const BookTour = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [date, setDate] = useState(new Date());
-    console.log(date)
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
     const [showDatePicker, setShowDatePicker] = useState(false);
-    console.log(showDatePicker)
+
     const handleDatePicker = () => {
         setShowDatePicker(true)
     };
-    let footer = <p>Please pick a day.</p>;
-    if (date) {
-        footer = <p>You picked {format(date, 'PP')}.</p>;
-    }
+    
     const handleBooking = data => {
         console.log(data)
     };
     return (
-        <div className='bg-image sm:my-10 lg:m-10 p-10'>
+        <div className='bg-image sm:my-10 lg:mx-10 lg:my-20 p-10'>
             <div className='lg:flex justify-center gap-5'>
                 <div className='lg:w-1/2'>
                     <h3 className='xl text-white font-bold sm:hidden lg:block'>BOOKING</h3>
@@ -45,18 +42,18 @@ const BookTour = () => {
                             showDatePicker && <DayPicker
                                 className='text-white'
                                 mode="single"
-                                selected={date}
-                                onSelect={setDate}
-                                footer={footer}
+                                selected={selectedDate}
+                                onSelect={setSelectedDate}
                             ></DayPicker>
                         }
                         <div className='lg:flex gap-2 lg:mt-5'>
                             <input
-                                defaultValue={date ? format(date, 'PP') : ''}
+                                value={format(selectedDate, 'PP')}
                                 {...register("date", { required: 'Date is required' })}
                                 onClick={handleDatePicker}
                                 className='border-2 border-white w-full bg-transparent p-3 text-white' />
                             {errors.date && <p className='text-red-500'>{errors.date?.message}</p>}
+
                             <select {...register("destination")} className="border-2 border-white w-full bg-transparent p-3 text-white ">
                                 <option disabled selected value='malaysia'>Malaysia</option>
                                 <option value='australia' className='text-black'>Australia</option>

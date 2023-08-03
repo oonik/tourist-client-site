@@ -1,6 +1,7 @@
 import React from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import Banner from '../../Shared/Banner/Banner';
 
 const OurServices = () => {
     AOS.init()
@@ -56,7 +57,9 @@ const OurServices = () => {
         },
     ]
     return (
-        <div className='lg:mx-10 my-20'>
+        <div>
+            <Banner></Banner>
+            <div className='lg:mx-10 my-20'>
             <h3 className='text-xl text-center font-semibold text-green-400'>SERVICES</h3>
             <h1 className='text-5xl font-bold text-center mt-5 mb-20 text-gray-600'>Our Services</h1>
             <div className='grid lg:grid-cols-4 gap-8'>
@@ -77,6 +80,7 @@ const OurServices = () => {
                     </div>)
                 }
             </div>
+        </div>
         </div>
     );
 };
