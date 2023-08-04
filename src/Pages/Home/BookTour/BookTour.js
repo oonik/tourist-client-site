@@ -4,11 +4,12 @@ import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import './BooktTour.css'
 import 'react-day-picker/dist/style.css';
+import { toast } from 'react-toastify';
 
 
 
 const BookTour = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const [selectedDate, setSelectedDate] = useState(new Date());
 
     const [showDatePicker, setShowDatePicker] = useState(false);
@@ -18,8 +19,31 @@ const BookTour = () => {
     };
     
     const handleBooking = data => {
-        console.log(data)
+        fetch('http://localhost:5000/booking', {
+            method: 'POST',
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.acknowledged){
+                reset();
+                toast('booking successfully', {
+                    position: "top-center",
+                    type: "success",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",});
+            }
+        })
     };
+   
     return (
         <div className='bg-image sm:my-10 lg:mx-10 lg:my-20 p-10'>
             <div className='lg:flex justify-center gap-5'>
@@ -48,8 +72,8 @@ const BookTour = () => {
                         }
                         <div className='lg:flex gap-2 lg:mt-5'>
                             <input
-                                value={format(selectedDate, 'PP')}
                                 {...register("date", { required: 'Date is required' })}
+                                value={format(selectedDate, 'PP')}
                                 onClick={handleDatePicker}
                                 className='border-2 border-white w-full bg-transparent p-3 text-white' />
                             {errors.date && <p className='text-red-500'>{errors.date?.message}</p>}

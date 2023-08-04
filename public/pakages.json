@@ -1,0 +1,38 @@
+[
+    {
+      "price": "$3,640.56",
+      "picture": "https://i.postimg.cc/fybXxXnR/package-3.jpg",
+      "about": "Non voluptate do labore fugiat sit culpa deserunt culpa et sunt dolore cupidatat adipisicing amet. Quis tempor qui aliquip sint labore nulla occaecat. Consectetur ut et commodo ex adipisicing sunt.\r\n",
+      "locations": "Malaysia",
+      "days": "3 Days",
+      "person": "2 Person",
+      "rating": "4.4"
+    },
+    {
+      "price": "$1,127.33",
+      "picture": "https://i.postimg.cc/FRwbt6Rd/destination-3.jpg",
+      "about": "Est dolor anim duis aliqua nulla tempor cillum eu enim irure amet sunt. Ex elit nostrud nulla consequat aute consectetur cupidatat nisi amet et Lorem ad qui aliquip. Commodo incididunt in Lorem eiusmod eiusmod adipisicing aute ipsum veniam non laboris fugiat. Labore amet ea ut veniam adipisicing ad sit labore non dolor veniam dolore. Consequat nulla nulla ut qui eu non mollit exercitation. Ut aute velit officia ea excepteur nisi cupidatat ad quis nostrud exercitation dolore nulla.\r\n",
+      "locations": "Australia",
+      "days": "3 Days",
+      "person": "2 Person",
+      "rating": "4.5"
+    },
+    {
+      "price": "$2,673.81",
+      "picture": "https://i.postimg.cc/4xY5DD0x/package-1.jpg",
+      "about": "Laboris laborum sit dolor ad duis irure ad magna qui. Nisi deserunt laborum aliquip tempor reprehenderit nostrud. Cillum amet aute dolor eu occaecat magna.\r\n",
+      "locations": "Thailand",
+      "days": "3 Days",
+      "person": "2 Person",
+      "rating": "4.3"
+    },
+    {
+      "price": "$2,330.09",
+      "picture": "https://i.postimg.cc/TY4jJkPM/package-2.jpg",
+      "about": "Cillum magna ipsum mollit velit elit. Aliquip mollit aute nisi dolor duis aliqua aute eiusmod. Sit non fugiat officia ex aute eiusmod eiusmod sit non anim. Et ea ea sunt occaecat deserunt pariatur ea incididunt id aute magna.\r\n",
+      "locations": "Indonesia",
+      "days": "3 Days",
+      "person": "2 Person",
+      "rating": "4.6"
+    }
+  ]

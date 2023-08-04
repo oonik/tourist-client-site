@@ -1,10 +1,9 @@
 import React from 'react';
 import { useForm } from "react-hook-form";
-import login from '../../assest/login/login@4x.png'
+import login from '../../../assest/login/login@4x.png'
 import { Link } from 'react-router-dom';
 
-
-const Login = () => {
+const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const handleLogin = data =>{
@@ -19,7 +18,14 @@ const Login = () => {
                 <div className="card  lg:max-w-sm shadow-2xl bg-base-100 lg:w-1/2 lg:ml-20">
                 
                     <form onSubmit={handleSubmit(handleLogin)} className="card-body">
-                       <h1 className='text-3xl font-bold text-green-400 '>Login Now!!</h1>
+                       <h1 className='text-3xl font-bold text-green-400 '>Signup Now!!</h1>
+                        <div className="form-control">
+                            <label className="label">
+                                <span className="label-text">Name</span>
+                            </label>
+                            <input type="text" placeholder="name" {...register("name", {required: "Name is required"})} className="input input-bordered" />
+                            {errors.name && <p className='text-red-500'>{errors.name?.message}</p>}
+                        </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Email</span>
@@ -38,11 +44,11 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
-                    <p className='text-center pb-4 text-red-500'>Don't have an account? <Link to='/signup' className='text-green-400'>Signup</Link></p>
+                    <p className='text-center pb-4 text-red-500'>Already have an account?<Link to='/login' className='text-green-400'>Login</Link></p>
                 </div>
             </div>
         </div>
     );
 };
 
-export default Login;
+export default SignUp;

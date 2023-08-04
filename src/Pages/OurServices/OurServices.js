@@ -57,8 +57,6 @@ const OurServices = () => {
         },
     ]
     return (
-        <div>
-            <Banner></Banner>
             <div className='lg:mx-10 my-20'>
             <h3 className='text-xl text-center font-semibold text-green-400'>SERVICES</h3>
             <h1 className='text-5xl font-bold text-center mt-5 mb-20 text-gray-600'>Our Services</h1>
@@ -80,7 +78,6 @@ const OurServices = () => {
                     </div>)
                 }
             </div>
-        </div>
         </div>
     );
 };
