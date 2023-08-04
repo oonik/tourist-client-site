@@ -19,6 +19,7 @@ const BookTour = () => {
     };
     
     const handleBooking = data => {
+        console.log(data)
         fetch('http://localhost:5000/booking', {
             method: 'POST',
             headers: {

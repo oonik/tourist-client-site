@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import login from '../../../assest/login/login@4x.png'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {handleCreateUser} = useContext(AuthContext);
+    const [errorMessage, setErrorMessage] = useState("");
 
     const handleLogin = data =>{
-        console.log(data)
+        handleCreateUser(data.email, data.password)
+        .then((result=>{
+            const user = result.user;
+            console.log(user)
+        }))
+        .catch((error) => {
+            const errorCode = error.code;
+            // console.log(errorCode)
+            const  errorMessage = error.message;
+            setErrorMessage(errorMessage);
+          });
     }
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen">
             <div className="lg:grid grid-cols-2  justify-center items-center">
                 <div className="lg:w-1/2">
                     <img src={login} alt="" className='lg:ml-44' />
@@ -41,9 +54,10 @@ const SignUp = () => {
                             {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary">Login</button>
+                            <button className="btn btn-primary">Sign up</button>
                         </div>
                     </form>
+                    <p className='text-red-500 text-center'>{errorMessage}</p>
                     <p className='text-center pb-4 text-red-500'>Already have an account?<Link to='/login' className='text-green-400'>Login</Link></p>
                 </div>
             </div>

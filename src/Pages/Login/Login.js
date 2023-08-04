@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import login from '../../assest/login/login@4x.png'
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
 
 
 const Login = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const {handleLoginUser} = useContext(AuthContext);
+    const [error, setError] = useState('');
 
     const handleLogin = data =>{
-        console.log(data)
+        handleLoginUser(data.email, data.password)
+        .then((result)=>{
+            const user = result.user;
+            console.log(user);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            console.log(errorCode)
+            const errorMessage = error.message;
+            setError(errorMessage)
+          });
     }
     return (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="hero min-h-screen">
             <div className="lg:grid grid-cols-2  justify-center items-center">
                 <div className="lg:w-1/2">
                     <img src={login} alt="" className='lg:ml-44' />
@@ -38,6 +51,7 @@ const Login = () => {
                             <button className="btn btn-primary">Login</button>
                         </div>
                     </form>
+                    <p className='text-red-500'>{error}</p>
                     <p className='text-center pb-4 text-red-500'>Don't have an account? <Link to='/signup' className='text-green-400'>Signup</Link></p>
                 </div>
             </div>
