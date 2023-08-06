@@ -1,20 +1,34 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import login from '../../assest/login/login@4x.png'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider/AuthProvider';
+import useToken from '../../hook/useToken';
 
 
 const Login = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const {handleLoginUser} = useContext(AuthContext);
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const {handleLoginUser, user} = useContext(AuthContext);
     const [error, setError] = useState('');
+    const [loginUser, setLoginUser] = useState('');
+    const [token] = useToken(loginUser);
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    let from = location.state?.from?.pathname || '/';
+
+    if(token){
+        navigate(from, {replace:true});
+    }
 
     const handleLogin = data =>{
         handleLoginUser(data.email, data.password)
         .then((result)=>{
             const user = result.user;
-            console.log(user);
+            if(user){
+                reset();
+            };
+            setLoginUser(data.email);
         })
         .catch((error) => {
             const errorCode = error.code;
@@ -37,14 +51,14 @@ const Login = () => {
                             <label className="label">
                                 <span className="label-text">Email</span>
                             </label>
-                            <input type="email" placeholder="email" {...register("email", {required: "Email is required"})} className="input input-bordered" />
+                            <input type="email" defaultValue={user?.email} placeholder="email" {...register("email", {required: "Email is required"})} className="input input-bordered" />
                             {errors.email && <p className='text-red-500'>{errors.email?.message}</p>}
                         </div>
                         <div className="form-control">
                             <label className="label">
                                 <span className="label-text">Password</span>
                             </label>
-                            <input type="password" placeholder="password" {...register("password", {required: "password is required", minLength: {value: 8, message: "password must 8 number or character"}})} className="input input-bordered" />
+                            <input type="password" defaultValue={user?.password} placeholder="password" {...register("password", {required: "password is required", minLength: {value: 8, message: "password must 8 number or character"}})} className="input input-bordered" />
                             {errors.password && <p className='text-red-500'>{errors.password?.message}</p>}
                         </div>
                         <div className="form-control mt-6">

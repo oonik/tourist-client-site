@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaCalendarDays, FaLocationDot} from "react-icons/fa6";
 import { BsPersonFill } from "react-icons/bs";
+import Star from '../Star/Star';
 
 const PackageCard = ({ pack }) => {
     const { price, picture, locations, rating, days, about, person } = pack;
@@ -18,6 +19,7 @@ const PackageCard = ({ pack }) => {
             </table>
             <div className="p-8"> 
                 <h2 className="text-2xl font-bold text-center">{price}</h2>
+                <Star rating={rating}></Star>
                 <p>{ about.length > 100 ? about.slice(0, 100) + '...': ''}</p>
             </div>
         </div>

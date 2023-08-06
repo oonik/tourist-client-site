@@ -1,50 +1,52 @@
-import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
+import React, { useContext, useState } from 'react';
+import { Controller, useForm } from "react-hook-form";
 import { format } from 'date-fns';
 import { DayPicker } from 'react-day-picker';
 import './BooktTour.css'
 import 'react-day-picker/dist/style.css';
 import { toast } from 'react-toastify';
+import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
 
 
 
 const BookTour = () => {
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { control, register, handleSubmit, reset, formState: { errors } } = useForm();
     const [selectedDate, setSelectedDate] = useState(new Date());
-
     const [showDatePicker, setShowDatePicker] = useState(false);
+    const { user } = useContext(AuthContext);
 
     const handleDatePicker = () => {
         setShowDatePicker(true)
     };
-    
+
     const handleBooking = data => {
         console.log(data)
         fetch('http://localhost:5000/booking', {
             method: 'POST',
             headers: {
-                'content-type':'application/json'
+                'content-type': 'application/json'
             },
             body: JSON.stringify(data)
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.acknowledged){
-                reset();
-                toast('booking successfully', {
-                    position: "top-center",
-                    type: "success",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "light",});
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    reset();
+                    toast('booking successfully', {
+                        position: "top-center",
+                        type: "success",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    });
+                }
+            })
     };
-   
+
     return (
         <div className='bg-image sm:my-10 lg:mx-10 lg:my-20 p-10'>
             <div className='lg:flex justify-center gap-5'>
@@ -60,7 +62,7 @@ const BookTour = () => {
                         <div className='lg:flex gap-2'>
                             <input placeholder='Your Name' {...register("name", { required: 'Name is required' })} className='border-2 border-white w-full bg-transparent p-3 placeholder:text-white' />
                             {errors.name && <p className='text-red-500'>{errors.name?.message}</p>}
-                            <input placeholder='Your Email' {...register("email", { required: 'Your email is required' })} className='border-2 border-white w-full bg-transparent p-3 placeholder:text-white' />
+                            <input placeholder='Your Email' {...register("email", { required: 'Your email is required' })} defaultValue={user ? user.email : ""} className='border-2 border-white w-full bg-transparent p-3 placeholder:text-white defaultValue:text-white' />
                             {errors.email && <p className='text-red-500'>{errors.email?.message}</p>}
                         </div>
                         {

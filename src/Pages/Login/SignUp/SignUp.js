@@ -1,26 +1,54 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from "react-hook-form";
 import login from '../../../assest/login/login@4x.png'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider/AuthProvider';
+import useToken from '../../../hook/useToken';
 
 const SignUp = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const {handleCreateUser} = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState("");
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    const [token] = useToken(createdUserEmail);
+    const navigate = useNavigate();
+
+    if(token){
+        navigate('/login')
+    }
 
     const handleLogin = data =>{
         handleCreateUser(data.email, data.password)
         .then((result=>{
             const user = result.user;
-            console.log(user)
+            if(user){
+                reset();
+            }
+            saveUser(data.name, data.email);
         }))
         .catch((error) => {
-            const errorCode = error.code;
-            // console.log(errorCode)
             const  errorMessage = error.message;
             setErrorMessage(errorMessage);
           });
+    };
+
+    const saveUser = (name, email) =>{
+        const user = {
+            name,
+            email
+        }
+        fetch('http://localhost:5000/users', {
+            method: "POST",
+            headers: {
+                'content-type':'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            // console.log(data)
+            setCreatedUserEmail(email);
+        })
     }
     return (
         <div className="hero min-h-screen">
