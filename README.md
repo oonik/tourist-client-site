@@ -1,3 +1,34 @@
+<!-- Using features && technology -->
+
+<!-- 
+1. Booking tour
+2. Delete booking with confirmation modal. Api protected.
+3. Sign up and login user with firebase
+4. Private route admin route
+5. make admin user, Api protected.
+6. verify admin
+7. save user database
+ -->
+ <!-- Technology -->
+ <!-- 
+  1. React.js
+  2. Node.js, express.js, mongodb
+  3. json web token (JWT)
+  4. react router dom 
+  5. react router context hook
+  6. daisy ui & tailwind css
+  7. react hook from
+  -->
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

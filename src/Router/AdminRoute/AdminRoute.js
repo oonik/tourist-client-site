@@ -5,13 +5,13 @@ import Loading from '../../Shared/Loading/Loading';
 import { Navigate, useLocation } from 'react-router-dom';
 
 const AdminRoute = ({children}) => {
-    const {user,loading} = useContext(AuthContext);
+    const {user, loading} = useContext(AuthContext);
     const [isAdmin, adminIsLoading] = useAdmin(user?.email);
     const location = useLocation();
 
      if(loading || adminIsLoading){
         return <Loading></Loading>
-     };
+     }
      if(user && isAdmin){
         return children;
      }

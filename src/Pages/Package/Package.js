@@ -23,7 +23,7 @@ const Package = () => {
             <h1 className='text-5xl font-bold text-center mb-10 text-gray-600'>Awesome Packages</h1>
             <div className='grid lg:grid-cols-4 gap-4'>
                 {
-                    packages.map(pack => <PackageCard
+                    packages?.map(pack => <PackageCard
                         key={pack._id}
                         pack={pack}
                     ></PackageCard>)

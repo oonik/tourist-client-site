@@ -1,8 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import Loading from '../../../Shared/Loading/Loading';
+import { toast } from 'react-toastify';
+import ConfirmationModal from '../../../Shared/ConfirmationModal/ConfirmationModal';
 
 const AllUser = () => {
+    const [makeAdmin, setMakeAdmin] = useState(null);
+
     const { data: users = [], isLoading, refetch } = useQuery({
         queryKey: ['allUser'],
         queryFn: async () => {
@@ -15,6 +19,23 @@ const AllUser = () => {
             return data;
         }
     });
+
+    const handleMakeAdmin = (id) =>{
+        fetch(`http://localhost:5000/users/make/admin/${id}`, {
+            method: 'PUT',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            if(data.modifiedCount > 0){
+                toast('Make admin successfully');
+                refetch();
+            }
+        })
+    }
 
     if (isLoading) {
         return <Loading></Loading>
@@ -34,19 +55,33 @@ const AllUser = () => {
                     </thead>
                     <tbody>
                         {
-                            users.map((user, i) => <tr key={user._id}>
+                            users?.map((user, i) => <tr key={user._id}>
                                 <th>{i + 1}</th>
                                 <td>{user.name}</td>
                                 <td>{user.email}</td>
                                 <td>{user._id}</td>
                                 <td>
-                                    <button className='btn btn-sm bg-green-400 text-white'>Delete</button>
+                                <label 
+                                   onClick={()=> setMakeAdmin(user)} 
+                                   htmlFor="confirmation-modal" 
+                                   className="btn btn-sm bg-green-500 text-white">Make Admin</label>
+                                    {/* <button
+                                    onClick={()=> handleMakeAdmin(user._id)}
+                                    className='btn btn-sm bg-green-400 text-white'>Make Admin</button> */}
                                 </td>
                             </tr>)
                         }
                     </tbody>
                 </table>
             </div>
+            {
+                makeAdmin && <ConfirmationModal
+                title={`Are you sure you want to make admin?`}
+                message={`If you make admin ${makeAdmin.name}. It cannot be undone`}
+                handleDelete={()=>handleMakeAdmin(makeAdmin._id)}
+                >
+                </ConfirmationModal>
+            }
         </div>
     );
 };
