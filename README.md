@@ -14,8 +14,8 @@
   1. React.js
   2. Node.js, express.js, MongoDB
   3. json web token (JWT)
-  4. React router dom 
-  5. React router context hook
+  4. React-router-dom 
+  5. Private-router, context Api
   6. daisy ui & tailwind css
   7. React hook from
   -->
